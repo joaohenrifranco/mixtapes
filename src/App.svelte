@@ -1,30 +1,27 @@
 <script>
-	export let name;
+  import { Router, Link, Route } from "svelte-routing";
+  import HomeScreen from './screens/home.svelte'
+  import SetupScreen from './screens/setup.svelte'
+
+  export let url = "";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<Router url="{url}">
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="/setup">SETUP</Link>
+  </nav>
+  <div>
+    <Route path="/"><HomeScreen /></Route>
+    <Route path="/setup"><SetupScreen /></Route>
+  </div>
+</Router>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	nav {
+		display: flex;
+		justify-content: space-between;
+		width: 25%;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
