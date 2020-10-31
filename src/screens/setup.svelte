@@ -16,7 +16,7 @@
 {#await promise}
   <p>...waiting</p>
 {:then _}
-  <p>Liked: {JSON.stringify($trackPool)}</p>
+  <p>Imported {JSON.stringify($trackPool.length)} songs</p>
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}

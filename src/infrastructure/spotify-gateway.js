@@ -24,7 +24,8 @@ class SpotifyGateway {
 
   async fetchUserSavedTracks() {
     const pages = this.fetchAllPages(this.client.getMySavedTracks);    
-    return pages;
+    const items = (await pages).reduce((tracks, page) => [...tracks, ...page.items], []);
+    return items.map(item => item.track);
   }
 }
 

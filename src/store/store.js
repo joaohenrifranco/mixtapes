@@ -6,11 +6,8 @@ function createTrackPool() {
 	
   const fetch = async () => {
     const currentUser = get(user);
-    console.log(currentUser);
     const gateway = new SpotifyGateway(currentUser.accessToken);
-
     const data = await gateway.fetchUserSavedTracks();
-    console.log(data);
     set(data);
   };
 
@@ -25,7 +22,6 @@ function createUser() {
   const { subscribe, set, update } = writable(0);
 
   const setUserToken = (spotifyDTO) => {
-    console.log(spotifyDTO);
     if (!spotifyDTO || spotifyDTO.error) {
       return set({
         error: spotifyDTO.error,
