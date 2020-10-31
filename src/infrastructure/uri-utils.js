@@ -1,3 +1,5 @@
+import { CLIENT_ID, REDIRECT_URI, SPOTIFY_AUTHORIZATION_ENDPOINT } from '../consts';
+
 export function encodeQueryParams(params) {
   const ret = [];
   for (let p in params)
@@ -15,4 +17,20 @@ export function parseCurrentURIFragment() {
     params[label] = value;
     return params;
   }, {});
+}
+
+export const authState = Math.random();
+
+export function getAuthorizationUrl() {
+  const params = {
+    client_id: CLIENT_ID,
+    response_type: 'token',
+    redirect_uri: REDIRECT_URI,
+    state: authState,
+    scope: 'user-library-read',
+  };
+
+  const queryParams = encodeQueryParams(params);
+
+  return `${SPOTIFY_AUTHORIZATION_ENDPOINT}?${queryParams}`;
 }

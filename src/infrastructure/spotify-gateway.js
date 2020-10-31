@@ -1,42 +1,21 @@
 import SpotifyClient from 'spotify-web-api-js';
 
-import { CLIENT_ID, REDIRECT_URI, SPOTIFY_AUTHORIZATION_ENDPOINT } from '../consts';
-import { encodeQueryParams } from './url-utils';
+class SpotifyGateway {
+  constructor(token) {
+    this.client = new SpotifyClient();
+    this.client.setAccessToken(token);
+  }
 
-const client = new SpotifyClient();
-const clientState = Math.random();
+  async fetchAllPages(firstPage) {
+    if (firstPage.next);
+  }
 
-function getAuthorizationUrl() {
-  const params = {
-    client_id: CLIENT_ID,
-    response_type: 'token',
-    redirect_uri: REDIRECT_URI,
-    state: clientState,
-    scope: 'user-library-read',
-  };
-
-  const queryParams = encodeQueryParams(params);
-
-  return `${SPOTIFY_AUTHORIZATION_ENDPOINT}?${queryParams}`;
-}
-
-function initClient(token) {
-  client.setAccessToken(token);
-}
-
-async function fetchAllPages(firstPage) {
-  if (firstPage.next) {
-
+  async fetchUserSavedTracks() {
+    const firstPage = this.client.getMySavedTracks();
+    this.fetchAllPages(firstPage);
   }
 }
 
-async function fetchUserSavedTracks() {
-  const firstPage = client.getMySavedTracks();
-}
-
-
 export default { 
-  initClient,
-  getAuthorizationUrl,
-  getUserSavedTracks,
+  SpotifyGateway
 };
