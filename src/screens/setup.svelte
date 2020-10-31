@@ -1,6 +1,7 @@
 <script>
   import { buildDTOFromWindowURIFragment } from "../infrastructure/uri-utils";
   import { user, trackPool } from "../store/store";
+  import TrackPool from '../components/track-pool.svelte'
 
   const authDTO = buildDTOFromWindowURIFragment(window);
   user.setUserToken(authDTO);
@@ -11,14 +12,4 @@
 <style>
 </style>
 
-{#if !error}Thanks!{/if}
-
-{#await promise}
-  <p>...waiting</p>
-{:then _}
-  <p>Imported {JSON.stringify($trackPool.length)} songs</p>
-{:catch error}
-  <p style="color: red">{error.message}</p>
-{/await}
-
-{#if error}Authorization failed Error: {error}{/if}
+<TrackPool />
