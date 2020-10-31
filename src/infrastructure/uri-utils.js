@@ -7,9 +7,11 @@ export function encodeQueryParams(params) {
   return ret.join('&');
 }
 
-export function parseCurrentURIFragment() {
-  const fragment = window.location.hash.substr(1);
+function getWindowURIFragment(window) {
+  return window.location.hash.substr(1);
+}
 
+function parseURIFragment(fragment) {
   return fragment.split('&').reduce((params, item) =>
   {
     const label = item.split('=')[0];
@@ -17,6 +19,10 @@ export function parseCurrentURIFragment() {
     params[label] = value;
     return params;
   }, {});
+}
+
+export function buildDTOFromWindowURIFragment(window) {
+  return parseURIFragment(getWindowURIFragment(window));
 }
 
 export const authState = Math.random();

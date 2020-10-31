@@ -1,27 +1,24 @@
 <script>
-  import { parseCurrentURIFragment } from "../infrastructure/uri-utils";
-  import SpotifyGateway from "../infrastructure/spotify-gateway";
+  import { buildDTOFromWindowURIFragment } from "../infrastructure/uri-utils";
+  import { user, trackPool } from "../store/store";
 
-  const spotifyAuthResponse = parseCurrentURIFragment();
-  const isAuthorized = spotifyAuthResponse && !spotifyAuthResponse.error;
-
-  SpotifyGateway.initClient(spotifyAuthResponse.access_token);
-  const promise = SpotifyGateway.getUserSavedTracks();
-
-  console.log(spotifyAuthResponse);
+  const authDTO = buildDTOFromWindowURIFragment(window);
+  user.setUserToken(authDTO);
+  const promise = trackPool.fetch();
+  const error = $user.error;
 </script>
 
 <style>
 </style>
 
-{#if isAuthorized}Authorized{/if}
+{#if !error}Thanks!{/if}
 
 {#await promise}
   <p>...waiting</p>
-{:then data}
-  <p>Liked: {JSON.stringify(data)}</p>
+{:then _}
+  <p>Liked: {JSON.stringify($trackPool)}</p>
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
 
-{#if !isAuthorized}Authorization failed Error: {spotifyAuthResponse.error}{/if}
+{#if error}Authorization failed Error: {error}{/if}

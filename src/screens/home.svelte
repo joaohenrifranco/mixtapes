@@ -1,11 +1,6 @@
 <script>
-  import SpotifyGateway from "../infrastructure/spotify-gateway";
-  const loginUrl = SpotifyGateway.getAuthorizationUrl();
+  import { getAuthorizationUrl } from "../infrastructure/uri-utils";
+  const loginUrl = getAuthorizationUrl();
 </script>
-
-<style>
-  a {
-  }
-</style>
 
 <a href={loginUrl}>Login</a>
