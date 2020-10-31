@@ -1,6 +1,6 @@
 <script>
-  import { SpotifyGatewaySingleton } from "../infrastructure/spotify-gateway";
-  const loginUrl = SpotifyGatewaySingleton.getAuthorizationUrl();
+  import SpotifyGateway from "../infrastructure/spotify-gateway";
+  const loginUrl = SpotifyGateway.getAuthorizationUrl();
 </script>
 
 <style>

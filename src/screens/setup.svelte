@@ -1,20 +1,27 @@
 <script>
-  import { parseCurrentURIFragment } from "../infrastructure/utils";
+  import { parseCurrentURIFragment } from "../infrastructure/uri-utils";
+  import SpotifyGateway from "../infrastructure/spotify-gateway";
 
   const spotifyAuthResponse = parseCurrentURIFragment();
-
   const isAuthorized = spotifyAuthResponse && !spotifyAuthResponse.error;
 
-  console.log(spotifyAuthResponse)
+  SpotifyGateway.initClient(spotifyAuthResponse.access_token);
+  const promise = SpotifyGateway.getUserSavedTracks();
+
+  console.log(spotifyAuthResponse);
 </script>
 
-
 <style>
-
 </style>
 
-ASDASDSADS
+{#if isAuthorized}Authorized{/if}
 
-{#if isAuthorized}SUCCESS!{/if}
+{#await promise}
+  <p>...waiting</p>
+{:then data}
+  <p>Liked: {JSON.stringify(data)}</p>
+{:catch error}
+  <p style="color: red">{error.message}</p>
+{/await}
 
-{#if !isAuthorized}FAILED!{/if}
+{#if !isAuthorized}Authorization failed Error: {spotifyAuthResponse.error}{/if}
