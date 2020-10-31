@@ -6,16 +6,26 @@ class SpotifyGateway {
     this.client.setAccessToken(token);
   }
 
-  async fetchAllPages(firstPage) {
-    if (firstPage.next);
+  async fetchAllPages(request) {
+    const firstPage = await request();
+    const pages = [firstPage];
+
+    while (pages[pages.length-1].next) {
+      const currentPage = await this.client.getGeneric(
+        pages[pages.length-1].next,
+      );
+
+      pages.push(currentPage);
+    }
+
+    return pages;
   }
 
+
   async fetchUserSavedTracks() {
-    const firstPage = this.client.getMySavedTracks();
-    this.fetchAllPages(firstPage);
+    const pages = this.fetchAllPages(this.client.getMySavedTracks);    
+    return pages;
   }
 }
 
-export default { 
-  SpotifyGateway
-};
+export default SpotifyGateway;
