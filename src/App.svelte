@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Router, Link, Route } from "svelte-routing";
   import HomeScreen from './screens/home.svelte'
   import SetupScreen from './screens/setup.svelte'

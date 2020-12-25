@@ -1,9 +1,9 @@
 import { get, writable } from 'svelte/store';
-import SpotifyGateway from '../infrastructure/spotify-gateway';
+import { SpotifyGateway } from '../infrastructure/spotify-gateway';
 
 function createTrackPool() {
   const { subscribe, set, update } = writable(0);
-	
+
   const fetch = async () => {
     const currentUser = get(user);
     const gateway = new SpotifyGateway(currentUser.accessToken);
