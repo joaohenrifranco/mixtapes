@@ -5,9 +5,7 @@
 <style>
 </style>
 
-{#if !$user.error}Thanks!{:else}Authorization failed Error: {$user.error}{/if}
-
-{#if !$trackPool}
+{#if !$trackPool || !$trackPool.length}
   <p>Carregando músicas...</p>
 {:else}
   <p>Vieram {JSON.stringify($trackPool.length)} músicas!</p>

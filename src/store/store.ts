@@ -1,8 +1,17 @@
-import { get, writable } from 'svelte/store';
-import { SpotifyGateway } from '../infrastructure/spotify-gateway';
+import { get, writable } from "svelte/store";
+import { SpotifyGateway } from "../infrastructure/spotify-gateway/";
+import type { AuthDto } from "../infrastructure/spotify-gateway/types";
+import { isAuthDtoError } from "../infrastructure/spotify-gateway/types";
+
+type User = {
+  accessToken?: string;
+  error?: string;
+};
+
+type Track = {};
 
 function createTrackPool() {
-  const { subscribe, set, update } = writable(0);
+  const { subscribe, set, update } = writable<Track[]>([]);
 
   const fetch = async () => {
     const currentUser = get(user);
@@ -19,10 +28,10 @@ function createTrackPool() {
 }
 
 function createUser() {
-  const { subscribe, set, update } = writable(0);
+  const { subscribe, set, update } = writable<User>({});
 
-  const setUserToken = (spotifyDTO) => {
-    if (!spotifyDTO || spotifyDTO.error) {
+  const setUserToken = (spotifyDTO: AuthDto) => {
+    if (isAuthDtoError(spotifyDTO)) {
       return set({
         error: spotifyDTO.error,
       });

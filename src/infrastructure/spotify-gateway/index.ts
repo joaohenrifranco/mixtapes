@@ -1,12 +1,14 @@
 import SpotifyClient from "spotify-web-api-js";
 
-import { URIUtils } from "./uri-utils";
+import { URIUtils } from "../uri-utils";
+import type { AuthDto } from './types';
 
 import {
   CLIENT_ID,
   REDIRECT_URI,
   SPOTIFY_AUTHORIZATION_ENDPOINT,
-} from "../consts";
+} from "../../consts";
+
 
 class SpotifyGateway {
   client: SpotifyClient.SpotifyWebApiJs;
@@ -16,7 +18,7 @@ class SpotifyGateway {
     this.client.setAccessToken(token);
   }
 
-  static getAuthorizationUrl() {
+  static getAuthorizationURL() {
     const params = {
       client_id: CLIENT_ID,
       response_type: "token",
@@ -28,6 +30,10 @@ class SpotifyGateway {
     const queryParams = URIUtils.encodeQueryParams(params);
 
     return `${SPOTIFY_AUTHORIZATION_ENDPOINT}?${queryParams}`;
+  }
+
+  static getAuthDtoFromWindow(window: Window): AuthDto | {} {
+    return URIUtils.buildDTOFromWindowURIFragment(window);
   }
 
   async fetchAllPages(

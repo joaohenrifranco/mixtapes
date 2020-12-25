@@ -1,12 +1,12 @@
 <script>
-  import { URIUtils } from "../infrastructure/uri-utils";
   import { user, trackPool } from "../store/store";
   import TrackPool from "../components/track-pool.svelte";
+  import { SpotifyGateway } from "../infrastructure/spotify-gateway";
 
-  const authDTO = URIUtils.buildDTOFromWindowURIFragment(window);
+  const authDTO = SpotifyGateway.getAuthDtoFromWindow(window);
+  
   user.setUserToken(authDTO);
-  const promise = trackPool.fetch();
-  const error = $user.error;
+  trackPool.fetch();
 </script>
 
 <style>
