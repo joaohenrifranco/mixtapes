@@ -9,7 +9,7 @@
 <Router url="{url}">
   <nav>
     <Link to="/">Home</Link>
-    <Link to="/setup">SETUP</Link>
+    <Link to="/setup">Setup</Link>
   </nav>
   <div>
     <Route path="/"><HomeScreen /></Route>

@@ -1,9 +1,9 @@
 <script>
-  import { buildDTOFromWindowURIFragment } from "../infrastructure/uri-utils";
+  import { URIUtils } from "../infrastructure/uri-utils";
   import { user, trackPool } from "../store/store";
-  import TrackPool from '../components/track-pool.svelte'
+  import TrackPool from "../components/track-pool.svelte";
 
-  const authDTO = buildDTOFromWindowURIFragment(window);
+  const authDTO = URIUtils.buildDTOFromWindowURIFragment(window);
   user.setUserToken(authDTO);
   const promise = trackPool.fetch();
   const error = $user.error;
