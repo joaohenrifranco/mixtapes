@@ -1,15 +1,17 @@
-import SpotifyClient from 'spotify-web-api-js';
+import SpotifyClient from "spotify-web-api-js";
 
-import { URIUtils } from './uri-utils';
+import { URIUtils } from "./uri-utils";
 
 import {
   CLIENT_ID,
   REDIRECT_URI,
   SPOTIFY_AUTHORIZATION_ENDPOINT,
-} from '../consts';
+} from "../consts";
 
 class SpotifyGateway {
-  constructor(token) {
+  client: SpotifyClient.SpotifyWebApiJs;
+
+  constructor(token: string) {
     this.client = new SpotifyClient();
     this.client.setAccessToken(token);
   }
@@ -17,10 +19,10 @@ class SpotifyGateway {
   static getAuthorizationUrl() {
     const params = {
       client_id: CLIENT_ID,
-      response_type: 'token',
+      response_type: "token",
       redirect_uri: REDIRECT_URI,
       state: 123,
-      scope: 'user-library-read',
+      scope: "user-library-read",
     };
 
     const queryParams = URIUtils.encodeQueryParams(params);
@@ -28,14 +30,16 @@ class SpotifyGateway {
     return `${SPOTIFY_AUTHORIZATION_ENDPOINT}?${queryParams}`;
   }
 
-  async fetchAllPages(request) {
+  async fetchAllPages(
+    request: () => Promise<SpotifyApi.UsersSavedTracksResponse>
+  ) {
     const firstPage = await request();
     const pages = [firstPage];
 
     while (pages[pages.length - 1].next) {
-      const currentPage = await this.client.getGeneric(
+      const currentPage = (await this.client.getGeneric(
         pages[pages.length - 1].next
-      );
+      )) as SpotifyApi.UsersSavedTracksResponse;
 
       pages.push(currentPage);
     }
