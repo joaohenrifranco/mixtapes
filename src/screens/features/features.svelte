@@ -7,6 +7,7 @@
   if (!$user.accessToken) {
     navigate("/", { replace: true });
   }
+
 </script>
 
 <style>
@@ -14,7 +15,9 @@
 
 <TrackPool />
 
-{#each FEATURES as feature, i}
+
+
+{#each Object.keys(FEATURES) as feature}
   <label>{feature}
     <input
       type="range"
@@ -23,4 +26,5 @@
       value="50"
       class="slider"
       id={feature} /></label>
+
 {/each}

@@ -1,8 +1,7 @@
 <script>
   import { Link } from "svelte-routing";
-  import { SpotifyGateway } from "../infrastructure/spotify-gateway";
-  import { user, trackPool } from "../store/store";
-
+  import { SpotifyGateway } from "../../infrastructure/spotify-gateway";
+  import { user, trackPool } from "../../store/store";
 
   const loginURL = SpotifyGateway.getAuthorizationURL();
 
@@ -21,4 +20,3 @@
 {#if $user.accessToken}
   <Link to="/features">Continuar...</Link>
 {:else}<a href={loginURL}>Login</a>{/if}
-
