@@ -1,5 +1,5 @@
 <script>
-  import { user, trackPool } from "../store/store";
+  import { user, trackPool } from "../../store/store";
 </script>
 
 <style>

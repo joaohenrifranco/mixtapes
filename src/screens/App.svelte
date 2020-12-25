@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-routing";
-  import HomeScreen from './screens/home.svelte'
-  import SetupScreen from './screens/choose.svelte'
+  import HomeScreen from './home/home.svelte'
+  import ChooseScreen from './features/features.svelte'
 
   export let url = "";
 </script>
@@ -9,11 +9,11 @@
 <Router url="{url}">
   <nav>
     <Link to="/">Home</Link>
-    <Link to="/setup">Setup</Link>
+    <Link to="/features">Features</Link>
   </nav>
   <div>
     <Route path="/"><HomeScreen /></Route>
-    <Route path="/setup"><SetupScreen /></Route>
+    <Route path="/features"><ChooseScreen /></Route>
   </div>
 </Router>
 
