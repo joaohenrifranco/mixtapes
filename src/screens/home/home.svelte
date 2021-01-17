@@ -1,14 +1,14 @@
 <script>
   import { Link } from "svelte-routing";
   import { SpotifyGateway } from "../../infrastructure/spotify-gateway";
-  import { user, trackPool } from "../../store/store";
+  import { user, trackPool } from "../../store/track-pool";
 
   const loginURL = SpotifyGateway.getAuthorizationURL();
 
   const authDTO = SpotifyGateway.getAuthDtoFromWindow(window);
 
   if (authDTO.access_token) {
-    user.setUserToken(authDTO);
+    user.setToken(authDTO);
     trackPool.fetch();
   }
 </script>
