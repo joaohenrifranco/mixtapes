@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-routing";
-  import HomeScreen from './home/home.svelte'
-  import ChooseScreen from './features/features.svelte'
+  import HomeScreen from './view/home/home.svelte'
+  import ChooseScreen from './view/features/features.svelte'
 
   export let url = "";
 </script>

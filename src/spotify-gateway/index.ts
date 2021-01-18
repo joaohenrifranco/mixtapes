@@ -1,13 +1,13 @@
 import SpotifyClient from "spotify-web-api-js";
 
-import { URIUtils } from "../uri-utils";
+import { URIUtils } from "../uri-utils
 import type { AuthDto } from './types';
 
 import {
   CLIENT_ID,
   REDIRECT_URI,
   SPOTIFY_AUTHORIZATION_ENDPOINT,
-} from "../../consts";
+} from "../config
 
 
 class SpotifyGateway {

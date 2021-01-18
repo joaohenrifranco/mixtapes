@@ -1,9 +1,9 @@
+import { trackPool } from './../actions/store/track-pool';
 import { get, writable } from "svelte/store";
 
-import { SpotifyGateway } from "../infrastructure/spotify-gateway";
-import { user } from "./user";
-
-type Track = {};
+type Store = {
+  trackPool: any[]
+};
 
 function createTrackPool() {
   const { subscribe, set, update } = writable<Track[]>([]);

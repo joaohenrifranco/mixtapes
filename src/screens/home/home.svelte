@@ -1,7 +1,7 @@
 <script>
   import { Link } from "svelte-routing";
-  import { SpotifyGateway } from "../../infrastructure/spotify-gateway";
-  import { user, trackPool } from "../../store/track-pool";
+  import { SpotifyGateway } from "../../spotify-gateway";
+  import { user, trackPool } from "../../actions/store/track-pool";
 
   const loginURL = SpotifyGateway.getAuthorizationURL();
 
