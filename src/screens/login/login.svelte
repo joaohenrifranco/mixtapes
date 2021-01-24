@@ -9,5 +9,5 @@
 </script>
 
 {#if $profile.accessToken}
-  <Link to="/features">Continuar...</Link>
+  <Link to="/mix">Continuar...</Link>
 {:else}<a href={spotifyAuthorizationURL}>Login</a>{/if}
