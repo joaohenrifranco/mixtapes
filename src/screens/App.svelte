@@ -1,8 +1,5 @@
 <script lang="typescript">
   import { Router, Link, Route } from "svelte-routing";
-  import { URIUtils } from "../uri-utils";
-  import { Actions } from "../presenter/actions";
-
   import LoginScreen from './login/login.svelte'
   import MixScreen from './mix/mix.svelte'
 
