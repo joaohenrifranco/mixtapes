@@ -1,12 +1,19 @@
 <script lang="typescript">
   import { FEATURES } from "../../config";
-  import TrackPool from "../generic/track-pool.svelte";
+  import { Actions } from "../../presenter/actions";
+  import Stats from "./stats.svelte";
+  import { trackPool, trackPoolLoading } from "../../presenter/store";
+
+  Actions.fetchTrackPool();
 </script>
 
 <style>
 </style>
 
-<TrackPool />
+<Stats
+  totalTrackCount={$trackPool.length}
+  chosenTrackCount={0}
+  isLoading={$trackPoolLoading} />
 
 {#each Object.keys(FEATURES) as feature}
   <label>{feature}

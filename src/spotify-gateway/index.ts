@@ -1,12 +1,12 @@
 import SpotifyClient from "spotify-web-api-js";
 
-import { URIUtils } from "../uri-utils"
+import { URIUtils } from "../uri-utils";
 
 import {
   CLIENT_ID,
   REDIRECT_URI,
   SPOTIFY_AUTHORIZATION_ENDPOINT,
-} from "../config"
+} from "../config";
 
 class SpotifyGateway {
   client: SpotifyClient.SpotifyWebApiJs;
@@ -31,8 +31,9 @@ class SpotifyGateway {
   }
 
   async fetchAllPages(
-    request: () => Promise<SpotifyApi.UsersSavedTracksResponse>
-  ) {
+    request: () => Promise<SpotifyApi.UsersSavedTracksResponse>,
+    onPartialFetch: (pages: any[]) => void
+  ): Promise<SpotifyApi.UsersSavedTracksResponse[]> {
     const firstPage = await request();
     const pages = [firstPage];
 
@@ -42,18 +43,26 @@ class SpotifyGateway {
       )) as SpotifyApi.UsersSavedTracksResponse;
 
       pages.push(currentPage);
+      onPartialFetch(pages);
     }
 
     return pages;
   }
 
-  async fetchUserSavedTracks() {
-    const pages = this.fetchAllPages(this.client.getMySavedTracks);
-    const items = (await pages).reduce(
-      (tracks, page) => [...tracks, ...page.items],
-      []
+  async fetchUserSavedTracks(onPartialFetch: (currentTracks: any[]) => void) {
+    const normalizeTracks = (pages: SpotifyApi.UsersSavedTracksResponse[]) => {
+      return pages.reduce((tracks, page) => [...tracks, ...page.items], []);
+    };
+
+    const onPartialPageFetch = (
+      pages: SpotifyApi.UsersSavedTracksResponse[]
+    ) => {
+      onPartialFetch(normalizeTracks(pages));
+    };
+
+    return normalizeTracks(
+      await this.fetchAllPages(this.client.getMySavedTracks, onPartialPageFetch)
     );
-    return items.map((item) => item.track);
   }
 }
 
