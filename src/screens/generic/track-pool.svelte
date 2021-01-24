@@ -1,5 +1,5 @@
-<script>
-  import { user, trackPool } from '../../model/store/track-pool';
+<script lang="typescript">
+  import { trackPool } from '../../presenter/store';
 </script>
 
 <style>

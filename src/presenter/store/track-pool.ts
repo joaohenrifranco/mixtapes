@@ -1,8 +1,5 @@
 import { writable } from "svelte/store";
 
-import { SpotifyGateway } from "../../model/infrastructure/spotify-gatewayeway";
-import { profile } from "./profile";
-
 type Track = {};
 
 function createTrackPool() {
@@ -16,3 +13,4 @@ function createTrackPool() {
 }
 
 export const trackPool = createTrackPool();
+export const trackPoolLoading = writable<boolean>(false);

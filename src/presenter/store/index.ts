@@ -1,8 +1,8 @@
 import { profile } from './profile';
-import { trackPool } from './track-pool';
-
+import { trackPool, trackPoolLoading } from './track-pool';
 
 export {
   profile,
-  trackPool
+  trackPool,
+  trackPoolLoading,
 }
