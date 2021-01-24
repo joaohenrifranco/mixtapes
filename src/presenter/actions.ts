@@ -10,12 +10,12 @@ async function fetchTrackPool() {
   const { accessToken } = get(Store.profile);
 
   if (!accessToken) {
-    Logger.error("fetchTrackPool action: accessToken is not defined");
+    Logger.error("actions/fetchTrackPool: accessToken is not defined");
     return;
   }
 
   const gateway = new SpotifyGateway(accessToken);
-  const data = await gateway.fetchUserSavedTracks();
+  const data = await gateway.fetchUserSavedTracks((data) => Store.trackPool.set(data));
 
   Store.trackPool.set(data);
   Store.trackPoolLoading.set(false);
@@ -25,12 +25,12 @@ function handleAuthDTO(authDTO: { error?: string; access_token?: string }) {
   const { error, access_token: accessToken } = authDTO;
 
   if (error) {
-    Logger.error(`handleAuthDTO error: ${authDTO.error}`);
+    Logger.error(`actions/handleAuthDTO: ${authDTO.error}`);
     return;
   }
 
   if (accessToken) {
-    Logger.log(`handleAuthDTO: token set`)
+    Logger.log(`actions/handleAuthDTO: token set`);
     Store.profile.setAccessToken(accessToken);
   }
 }
